@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysqlserver
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - database_mysql:/var/lib/mysql
+  app:
+    container_name: viralserver
+    build: .
+    ports:
+      - 5000:5000
+    restart: on-failure
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mysql
+    links:
+      - "mysql:mysql"
+
+volumes:
+  api:                # Uncomment this when using postgres.
+  database_mysql:

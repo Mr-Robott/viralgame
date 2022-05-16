@@ -48,7 +48,7 @@ func (s *Server) ConnectDB(connection, driver string) {
 	var err error
 	s.DB, err = gorm.Open(driver, connection)
 	if err != nil {
-		s.log.Fatalf("Unable to connect %s database : %s", err.Error())
+		s.log.Fatalf("Unable to connect database : %s", connection)
 	} else {
 		s.log.Println("Database Connected")
 	}

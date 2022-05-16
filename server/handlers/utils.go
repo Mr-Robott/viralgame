@@ -12,6 +12,7 @@ func (s *Server) ValidateParams(w http.ResponseWriter, vars map[string]string) *
 	// check if valid params exist and so is user with id param
 	user := &models.User{}
 	if uid, exist := vars["id"]; !exist || uid == "" {
+		s.log.Println("Unable to Validate Params")
 		s.ToError(w, http.StatusUnprocessableEntity, errors.New("no id param found"))
 		return nil
 	} else {

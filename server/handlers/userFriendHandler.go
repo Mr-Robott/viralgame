@@ -25,12 +25,14 @@ func (s *Server) AddFriends(w http.ResponseWriter, r *http.Request) {
 	// if user exist ready body data for updated fields
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
+		s.log.Println("Unable to Read Request Data : ", err.Error())
 		s.ToError(w, http.StatusUnprocessableEntity, err)
 	}
 
 	var allFriends FriendsID
 	err = json.Unmarshal(body, &allFriends)
 	if err != nil {
+		s.log.Println("Unable to UnMarshal Request Data : ",err.Error())
 		s.ToError(w, http.StatusUnprocessableEntity, err)
 		return
 	}
@@ -39,6 +41,7 @@ func (s *Server) AddFriends(w http.ResponseWriter, r *http.Request) {
 		var u models.User
 		_, err = u.FindUserByID(s.DB, ids)
 		if err != nil {
+			s.log.Println("Unable to Find Requested User :", ids)
 			s.ToError(w, http.StatusUnprocessableEntity, err)
 			return
 		}
@@ -49,6 +52,7 @@ func (s *Server) AddFriends(w http.ResponseWriter, r *http.Request) {
 		uf.UserTwo = ids
 		_, err = uf.SaveUserFriend(s.DB)
 		if err != nil {
+			s.log.Println("Unable to Process Request :", err.Error())
 			s.ToError(w, http.StatusUnprocessableEntity, err)
 			return
 		}
@@ -67,6 +71,7 @@ func (s *Server) GetFriends(w http.ResponseWriter, r *http.Request) {
 
 	uf, err := models.FindFriendsByID(s.DB, user.UserDetails.ID)
 	if err != nil {
+		s.log.Println("Unable to Find User Friends : ", err.Error())
 		s.ToError(w, http.StatusUnprocessableEntity, err)
 		return
 	}
@@ -83,6 +88,7 @@ func (s *Server) GetFriends(w http.ResponseWriter, r *http.Request) {
 
 	ufs, err := user.GetAllFriends(s.DB, friends)
 	if err != nil {
+		s.log.Println("Unable to Find User Friends Details : ", err.Error())
 		s.ToError(w, http.StatusUnprocessableEntity, err)
 		return
 	}

@@ -48,6 +48,7 @@ func (s *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	s.log.Println("Successfully Created User :",user.UserDetails.Name)
 	// return response with appropriate headers
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%s", r.Host, r.RequestURI, userDetails.ID))
 	s.ToJSON(w, http.StatusCreated, userCreated.UserDetails)
@@ -90,6 +91,7 @@ func (s *Server) UpdateGameState(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	s.log.Println("Game State Updated For User:",user.UserDetails.Name)
 	// return response with appropriate headers
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%s", r.Host, r.RequestURI, user.UserDetails.ID))
 	s.ToJSON(w, http.StatusOK, user)
@@ -115,6 +117,7 @@ func (s *Server) LoadGameState(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	s.log.Println("Game State Fetched For User:",user.UserDetails.Name)
 	// return response with appropriate headers
 	s.ToJSON(w, http.StatusOK, user.GameState)
 
@@ -134,6 +137,7 @@ func (s *Server) GetAllUsers(w http.ResponseWriter, _ *http.Request) {
 		userDetails.Users = append(userDetails.Users, users[idx].UserDetails)
 	}
 
+	s.log.Println("Fetching Details For All User:")
 	// return response with appropriate headers
 	s.ToJSON(w, http.StatusOK, userDetails)
 }

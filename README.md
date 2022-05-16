@@ -81,11 +81,13 @@ Response -
 curl -d '{"friends": ["7eeb1f9a-8f6d-4769-a670-a685f4add450","8f0dca46-e7b7-432a-864e-5c3e5533e14a"]}' -X PUT http://127.0.0.1:5000/user/40f41829-dfab-4f5b-ae49-4e90658196f2/friends
 ```
 - ```/user/<id>/friends``` [PUT] => *Get All Friends*
-- Request -
+
+Request -
 ```sh
 curl http://127.0.0.1:5000/user/40f41829-dfab-4f5b-ae49-4e90658196f2/friends 
 ```
-- Response -
+
+Response -
 ```sh
 [
   {

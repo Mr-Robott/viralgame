@@ -104,6 +104,11 @@ Response -
 ```
 - ```/user``` [GET] => *Get All Users*
 
+Request - 
+
+```sh
+curl http://127.0.0.1:5000/user  
+```
 
 Response -
 
@@ -144,7 +149,6 @@ Response -
 ```sh
 go run main.go
 ```
-- If you want to manu
 
 or you can build binary and run the same.
 

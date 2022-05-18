@@ -4,13 +4,14 @@ services:
     image: mysql:5.7
     container_name: mysqlserver
     ports:
-      - 3307:3306
+      - ${DB_PORT}:${DB_PORT}
     environment:
       - MYSQL_ROOT_HOST=${DB_HOST}
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_TCP_PORT=${DB_PORT}
     volumes:
       - database_mysql:/var/lib/mysql
   app:
@@ -27,5 +28,5 @@ services:
       - "mysql:mysql"
 
 volumes:
-  api:                # Uncomment this when using postgres.
+  api:                
   database_mysql:
